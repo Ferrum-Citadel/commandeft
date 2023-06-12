@@ -1,6 +1,6 @@
 import random
 
-from PyInquirer import prompt
+from InquirerPy import prompt
 from commandeft.constants.consts import init_messages
 
 

@@ -7,6 +7,10 @@ CommanDeft is a simple Python CLI tool designed to generate useful shell command
 - In order to use CommanDeft you will need an OpenAI API Key which will be asked of you during the initial configuration.
   You can easily get one from [HERE](https://platform.openai.com/account/api-keys)
 
+-If you are using Linux you might have to install `xclip` using your package manager.  
+For example, in Debian:
+`sudo apt-get install xclip`
+
 ## Installation
 
 To install CommanDeft, you can use the following command:
