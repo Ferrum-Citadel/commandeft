@@ -11,10 +11,18 @@ def parse_code_block(gpt_response):
 
 
 def get_current_shell():
-    shell = os.environ["SHELL"]
-    shell_type = shell.split("/")[-1]
-    return shell_type
+    shell = "Unknown"
+    os_name = get_current_os()
+    if os_name == "nt":
+        shell = os.environ.get("COMSPEC")
+        shell = shell.rsplit("\\", 1)[-1]
+
+    elif os_name == "posix":
+        shell = os.environ.get("SHELL")
+        shell = shell.rsplit("/", 1)[-1]
+
+    return shell
 
 
 def get_current_os():
-    return os.uname().sysname
+    return os.name
