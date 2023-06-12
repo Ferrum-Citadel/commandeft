@@ -54,7 +54,7 @@ During the initial configuration or when running:
 commandeft --configure (or -c)
 ```
 
-- You can choose the generated answer's `temperature`. Because this tool is geared towards code generation, lowe temperatures perform better.
+- You can choose the generated answer's `temperature`. Because this tool is geared towards code generation, lower temperatures perform better.
   More information about temeratures [HERE](https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api-a-few-tips-and-tricks-on-controlling-the-creativity-deterministic-output-of-prompt-responses/172683)
 - You can choose the `max_token` value.  
   ⚠️ Keep in Mind that the guided prompt consumes ~55 tokens. The value you specify won't include these tokens.
