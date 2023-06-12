@@ -304,6 +304,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "toml"
+version = "0.10.2"
+requires_python = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+summary = "Python Library for Tom's Obvious, Minimal Language"
+
+[[package]]
 name = "tqdm"
 version = "4.65.0"
 requires_python = ">=3.7"
@@ -337,7 +343,7 @@ dependencies = [
 lock_version = "4.2"
 cross_platform = true
 groups = ["default"]
-content_hash = "sha256:c61fc7b7552f364da44096d950ef7f41b79ba99d7c75c59bdb48d55f4df2e0e8"
+content_hash = "sha256:a6030bf523fb88abcdb2916ddc959897c15bb93cd726f9ccb0a8d4d987e402b2"
 
 [metadata.files]
 "aiohttp 3.8.4" = [
@@ -1006,6 +1012,10 @@ content_hash = "sha256:c61fc7b7552f364da44096d950ef7f41b79ba99d7c75c59bdb48d55f4
     {url = "https://files.pythonhosted.org/packages/db/4a/e264d72875dcf8b286174d6657d7c1b7ea43011d993e38918c79e0e92703/tiktoken-0.4.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:450d504892b3ac80207700266ee87c932df8efea54e05cefe8613edc963c1285"},
     {url = "https://files.pythonhosted.org/packages/e2/7c/220af98622ae684c7fc1ad8c778dd7e961df30f74ac66e097d3d8d4ce79f/tiktoken-0.4.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:f3020350685e009053829c1168703c346fb32c70c57d828ca3742558e94827a9"},
     {url = "https://files.pythonhosted.org/packages/f5/d2/04516a997061a580b103c0fdf991c69103bb2b376bb9e6004d0939bcc8e8/tiktoken-0.4.0-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:329f548a821a2f339adc9fbcfd9fc12602e4b3f8598df5593cfc09839e9ae5e4"},
+]
+"toml 0.10.2" = [
+    {url = "https://files.pythonhosted.org/packages/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120c3f1569e/toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
+    {url = "https://files.pythonhosted.org/packages/be/ba/1f744cdc819428fc6b5084ec34d9b30660f6f9daaf70eead706e3203ec3c/toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
 "tqdm 4.65.0" = [
     {url = "https://files.pythonhosted.org/packages/3d/78/81191f56abb7d3d56963337dbdff6aa4f55805c8afd8bad64b0a34199e9b/tqdm-4.65.0.tar.gz", hash = "sha256:1871fb68a86b8fb3b59ca4cdd3dcccbc7e6d613eeed31f4c332531977b89beb5"},

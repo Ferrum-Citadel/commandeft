@@ -3,6 +3,8 @@ import shutil
 import json
 import click
 import pyperclip
+import toml
+
 
 from commandeft.constants.consts import COMMANDEFT_ASCII_DESC, COMMANDEFT_NORMAL_DESC, CONFIG_FILE_PATH
 from commandeft.core.decision import decide_and_apply_action
@@ -67,3 +69,10 @@ def prompt_in_line(prompt):
     click.echo(click.style("> " + command, fg="green"))
     pyperclip.copy(command)
     click.echo("Command copied to clipboard!")
+
+
+def get_version():
+    with open("pyproject.toml", "r", encoding="utf-8") as pyproject:
+        pyproject_data = toml.load(pyproject)
+        version = pyproject_data["project"]["version"]
+        click.echo(f"v{version}")

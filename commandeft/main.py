@@ -1,8 +1,7 @@
 import sys
 import click
 
-
-from commandeft.core.cli import CustomCommand, configuration_mode, prompt_in_line, interactive_mode
+from commandeft.core.cli import CustomCommand, configuration_mode, get_version, prompt_in_line, interactive_mode
 
 
 def custom_exception_handler(exc_value):
@@ -22,7 +21,7 @@ sys.excepthook = custom_exception_handler
 @click.option("-p", "--prompt", help="Specify your prompt inline")
 def commandeft(version, configure, interactive, prompt):
     if version:
-        click.echo("v0.0.1")
+        get_version()
     elif configure:
         configuration_mode()
     elif interactive:
