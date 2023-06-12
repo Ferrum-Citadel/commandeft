@@ -1,9 +1,9 @@
 import os
 import shutil
 import json
+from importlib.metadata import version
 import click
 import pyperclip
-import toml
 
 
 from commandeft.constants.consts import COMMANDEFT_ASCII_DESC, COMMANDEFT_NORMAL_DESC, CONFIG_FILE_PATH
@@ -71,8 +71,5 @@ def prompt_in_line(prompt):
     click.echo("Command copied to clipboard!")
 
 
-def get_version():
-    with open("pyproject.toml", "r", encoding="utf-8") as pyproject:
-        pyproject_data = toml.load(pyproject)
-        version = pyproject_data["project"]["version"]
-        click.echo(f"v{version}")
+def print_version():
+    click.echo(version("commandeft"))
