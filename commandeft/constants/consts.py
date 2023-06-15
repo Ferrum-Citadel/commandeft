@@ -1,15 +1,14 @@
-import os
+from pathlib import Path
 
+CONFIG_FILE_PATH: Path = Path.home() / ".commandeft" / "config"
 
-CONFIG_FILE_PATH = os.path.expanduser("~/.commandeft/config")
-
-init_messages = [
+init_messages: list[str] = [
     "What mischief are we up to now?\n Describe the command you're concocting:",
     "Oh no, caught in another coding conundrum?\n Share the details:",
     "Here to save the day!\n Enlighten me with the command you're grappling with:",
     "When your coding journey hits a snag,\n Describe the task that makes you sag:",
     "No shame in seeking guidance.\n What command do you need a helping hand with?:",
-    "Trouble seems to find you often.\ nReveal the command conundrum you're facing now:",
+    "Trouble seems to find you often.\n Reveal the command conundrum you're facing now:",
     "We all need a helping hand sometimes.\n Describe the command that has you reaching out for support:",
     "In a pickle again, I see?\n Describe the trouble you're in and let's work it out together:",
     "Brave adventurer, share the quest for the command you seek and I shall guide you through:",
@@ -27,7 +26,7 @@ init_messages = [
     "In the digital realm, where all devs cry,\n A prompt for support, can't be denied!",
 ]
 
-fail_messages = [
+fail_messages: list[str] = [
     "Oh well, maybe next time!",
     "Better luck next time!",
     "Didn't quite get it this time huh?",
@@ -41,7 +40,7 @@ fail_messages = [
 ]
 
 # pylint: disable=anomalous-backslash-in-string
-COMMANDEFT_ASCII_DESC = """
+COMMANDEFT_ASCII_DESC: str = """
    ___                           ___       __ _   
   / __|___ _ __  _ __  __ _ _ _ |   \ ___ / _| |_ 
  | (__/ _ | '  \| '  \/ _` | ' \| |) / -_|  _|  _|
@@ -52,7 +51,7 @@ COMMANDEFT_ASCII_DESC = """
 
 """
 
-COMMANDEFT_NORMAL_DESC = """
+COMMANDEFT_NORMAL_DESC: str = """
 --- CommanDeft ---
 A simple Python CLI for generating shell commands using OpenAI's chat models.
 Prompt, Generate, Dominate! 
