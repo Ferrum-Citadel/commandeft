@@ -4,16 +4,9 @@ from pathlib import Path
 from commandeft.constants.config_constants import (REQUIRED_KEYS, TEMPERATURE, 
                                                    MAX_TOKENS, MODEL, 
                                                    ACCEPT_COMMAND_BEHAVIOR, 
-                                                   GPT_3_5_TURBO, GPT4, 
                                                    MODELS_LIST, MODELS_MAX_TOKENS,
                                                    COMMAND_BEHAVIOURS)
 from commandeft import CommandeftException
-
-class Configuration(str):
-    def __eq__(self, other):
-        allowed_values = ["model", "temperature", "max_tokens"]
-        return str(self) in allowed_values
-
 
 def get_configuration(config_property):
     if CONFIG_FILE_PATH.exists():
