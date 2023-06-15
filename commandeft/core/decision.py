@@ -8,7 +8,7 @@ from commandeft.util.config_util import get_configuration
 from commandeft.util.interactive_util import get_decision
 
 
-def decide_and_apply_action(command):
+def decide_and_apply_action(command: str) -> None:
     accept_command_behavior = get_configuration("accept_command_behavior")
 
     decision = get_decision(accept_command_behavior)

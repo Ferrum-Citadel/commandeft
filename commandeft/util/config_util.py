@@ -1,10 +1,13 @@
-import os
-import sys
 import json
-import click
-
 from commandeft.constants.consts import CONFIG_FILE_PATH
-
+from pathlib import Path
+from commandeft.constants.config_constants import (REQUIRED_KEYS, TEMPERATURE, 
+                                                   MAX_TOKENS, MODEL, 
+                                                   ACCEPT_COMMAND_BEHAVIOR, 
+                                                   GPT_3_5_TURBO, GPT4, 
+                                                   MODELS_LIST, MODELS_MAX_TOKENS,
+                                                   COMMAND_BEHAVIOURS)
+from commandeft import CommandeftException
 
 class Configuration(str):
     def __eq__(self, other):
@@ -12,42 +15,42 @@ class Configuration(str):
         return str(self) in allowed_values
 
 
-def get_configuration(config_property: Configuration, config_file_path: str = CONFIG_FILE_PATH):
-    if os.path.exists(config_file_path):
-        with open(config_file_path, "r", encoding="utf-8") as config_file:
+def get_configuration(config_property):
+    if CONFIG_FILE_PATH.exists():
+        with open(CONFIG_FILE_PATH, "r", encoding="utf-8") as config_file:
             configuration = json.load(config_file)
             return configuration.get(config_property)
 
 
-def validate_configuration(config_file_path: str = CONFIG_FILE_PATH):
-    required_keys = ["model", "temperature", "max_tokens", "accept_command_behavior"]
+def validate_configuration(config_file_path: Path = CONFIG_FILE_PATH):
 
-    if not os.path.exists(config_file_path):
-        click.echo(click.style("Configuration file not found.", fg="red"))
-        sys.exit(1)
+    if not config_file_path.exists():
+        raise CommandeftException("Config Error: Configuration file not found.")
 
-    with open(config_file_path, "r", encoding="utf-8") as config_file:
-        configuration = json.load(config_file)
+    try:
+        with open(config_file_path, "r", encoding="utf-8") as config_file:
+            configuration_json = json.load(config_file)
+    except json.JSONDecodeError:
+        raise CommandeftException("Config Error: Invalid JSON in configuration file.")
 
-    for key in required_keys:
-        if key not in configuration or configuration[key] is None or configuration[key] == "":
-            click.echo(click.style(f"Config Error: Missing or empty value for configuration key: '{key}'", fg="red"))
-            sys.exit(1)
+    __has_valid_contents(configuration_json)
 
-    if configuration["temperature"] < 0 or configuration["temperature"] > 1:
-        click.echo(click.style("Config Error: Invalid temperature value in configuration.", fg="red"))
-        sys.exit(1)
+    return configuration_json
 
-    if not 1 <= configuration["max_tokens"] <= 4096:
-        click.echo(click.style("Config Error: Invalid max_tokens value in configuration.", fg="red"))
-        sys.exit(1)
+def __has_valid_contents(configuration_json: str) -> bool:
+    for key in REQUIRED_KEYS:
+        if key not in configuration_json or configuration_json[key] is None or configuration_json[key] == "":
+            raise CommandeftException(f"Config Error: Missing or empty value for configuration key: '{key}'")
 
-    if configuration["model"] not in ["gpt-3.5-turbo", "gpt4"]:
-        click.echo(click.style("Config Error: Invalid model value in configuration.", fg="red"))
-        sys.exit(1)
+    if configuration_json[TEMPERATURE] < 0 or configuration_json[TEMPERATURE] > 1:
+        raise CommandeftException("Config Error: Invalid temperature value in configuration.")
 
-    if configuration["accept_command_behavior"] not in ["run", "copy"]:
-        click.echo(click.style("Config Error: Invalid model value in configuration.", fg="red"))
-        sys.exit(1)
+    if not 1 <= configuration_json[MAX_TOKENS] <= MODELS_MAX_TOKENS[configuration_json[MODEL]]:
+        raise CommandeftException("Config Error: Invalid max_tokens value in configuration.")
 
-    return configuration
+    if configuration_json[MODEL] not in MODELS_LIST:
+        raise CommandeftException("Config Error: Invalid model value in configuration.")
+
+    if configuration_json[ACCEPT_COMMAND_BEHAVIOR] not in COMMAND_BEHAVIOURS:
+        raise CommandeftException("Config Error: Invalid accept_command_behavior value in configuration.")
+    return True
