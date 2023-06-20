@@ -43,7 +43,7 @@ def generate_command(user_prompt):
 
     completion = openai.ChatCompletion.create(
         model=get_configuration("model"),
-        max_tokens=max_tokens + 55,
+        max_tokens=max_tokens + 70,
         temperature=temperature,
         messages=messages,
     )

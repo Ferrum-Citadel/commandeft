@@ -28,7 +28,7 @@ def get_configuration_answers():
         {
             "type": "input",
             "name": "max_tokens",
-            "message": "Enter max_tokens(1-4,096). Keep in mind that guided prompt consumes ~55 tokens.:\n",
+            "message": "Enter max_tokens(1-4,096). Keep in mind that guided prompt consumes ~70 tokens.:\n",
             "validate": lambda val: 1 <= float(val) <= 4096,
             "filter": lambda val: int(val),
         },
