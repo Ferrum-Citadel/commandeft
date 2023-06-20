@@ -61,7 +61,7 @@ commandeft --configure (or -c)
 - You can choose the generated answer's `temperature`. Because this tool is geared towards code generation, lower temperatures perform better.
   More information about temeratures [HERE](https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api-a-few-tips-and-tricks-on-controlling-the-creativity-deterministic-output-of-prompt-responses/172683)
 - You can choose the `max_token` value.  
-  ⚠️ Keep in Mind that the guided prompt consumes ~55 tokens. The value you specify won't include these tokens.
+  ⚠️ Keep in Mind that the guided prompt(assistant role prompt + user role prompt without user's prompt) consumes ~70 tokens. The value you specify won't include these tokens.
 - You will also be asked about the action that will be performed every time when you accept a generated command when running in interactive mode.  
   The available actions are:
 
