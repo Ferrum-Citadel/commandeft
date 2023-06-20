@@ -49,6 +49,31 @@ dependencies = [
     "yarl<2.0,>=1.0",
     "InquirerPy>=0.3.4",
 ]
+keywords = [
+  "commandeft",
+  "cli tool",
+  "shell commands",
+  "openai",
+  "prompt-based command generation",
+  "natural language prompts",
+  "shell commands",
+  "shell scripts",
+  "shell command generation",
+  "intelligent code generation",
+  "language-to-code conversion",
+  "developer-friendly",
+  "simplified scripting",
+  "code efficiency",
+  "streamline workflow",
+  "intelligent suggestions",
+  "efficient command composition",
+  "gpt-3.5-turbo",
+  "gpt-4",
+  "shell command suggestion",
+  "interactive mode",
+  "guided prompt",
+  "command execution",
+]
 license = {text = "MIT"}
 
 [project.urls]
