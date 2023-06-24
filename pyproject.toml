@@ -37,6 +37,7 @@ dependencies = [
     "wcwidth==0.2.6",
     "yarl<2.0,>=1.0",
     "InquirerPy>=0.3.4",
+    "tiktoken>=0.4.0",
 ]
 keywords = [
   "commandeft",
