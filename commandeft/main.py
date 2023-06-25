@@ -1,16 +1,6 @@
-import sys
 import click
 
 from commandeft.core.cli import CustomCommand, configuration_mode, print_version, prompt_in_line, interactive_mode
-
-
-def custom_exception_handler(exc_value):
-    # Handle the exception
-    click.echo(click.style(f"An error occurred:{str(exc_value),}", fg="red"))
-    sys.exit(1)
-
-
-sys.excepthook = custom_exception_handler
 
 
 @click.command(cls=CustomCommand)
