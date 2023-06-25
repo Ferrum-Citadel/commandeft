@@ -1,30 +1,31 @@
 import os
 
 
-CONFIG_FILE_PATH = os.path.expanduser("~/.commandeft/config")
+CONFIG_FILE_PATH = os.path.join(os.path.expanduser("~"), ".commandeft", "config")
+MAX_TOKENS = 4096
 
 init_messages = [
-    "What mischief are we up to now?\n Describe the command you're concocting:",
-    "Oh no, caught in another coding conundrum?\n Share the details:",
-    "Here to save the day!\n Enlighten me with the command you're grappling with:",
-    "When your coding journey hits a snag,\n Describe the task that makes you sag:",
-    "No shame in seeking guidance.\n What command do you need a helping hand with?:",
-    "Trouble seems to find you often.\ nReveal the command conundrum you're facing now:",
-    "We all need a helping hand sometimes.\n Describe the command that has you reaching out for support:",
-    "In a pickle again, I see?\n Describe the trouble you're in and let's work it out together:",
-    "Brave adventurer, share the quest for the command you seek and I shall guide you through:",
-    "When bugs run rampant, causing you despair,\n Detail the task that makes you pull out your hair:",
-    "Here to rescue you from the labyrinth of documentation!\n Unravel your challenge to me:",
-    "Seeking shell enlightenment, are we?\n Unveil the path to wisdom you're pursuing:",
-    "In the coding realm, when all is grim,\n Describe the prompt that makes you scream:",
-    "Ready to conquer the coding riddles?\n Describe the challenge you're facing, and I'll be your guide:",
-    "Stuck in the maze of complex requirements?\n Describe the twists and turns that have you feeling lost:",
-    "In the vast realm of coding, even superheroes need a sidekick!\n Tell me about the command you need assistance with:",
-    "Don't worry, I won't judge.\n We've all been there! Ask about the command that has you scratching your head:",
-    "In the vast sea of commands,\n it's okay to feel overwhelmed. Let me know which one you're struggling with, and we'll figure it out together:",
-    "Well, well, look who's in need of guidance.\n Pray tell, what has you seeking my wisdom?:",
-    "In a code abyss, dark and deep,\n Share the task that makes you weep:",
-    "In the digital realm, where all devs cry,\n A prompt for support, can't be denied!",
+    "What mischief are we up to now?\n Describe the command you're concocting:\n",
+    "Oh no, caught in another coding conundrum?\n Share the details:\n",
+    "Here to save the day!\n Enlighten me with the command you're grappling with:\n",
+    "When your coding journey hits a snag,\n Describe the task that makes you sag:\n",
+    "No shame in seeking guidance.\n What command do you need a helping hand with?:\n",
+    "Trouble seems to find you often.\n nReveal the command conundrum you're facing now:\n",
+    "We all need a helping hand sometimes.\n Describe the command that has you reaching out for support:\n",
+    "In a pickle again, I see?\n Describe the trouble you're in and let's work it out together:\n",
+    "Brave adventurer, share the quest for the command you seek and I shall guide you through:\n",
+    "When bugs run rampant, causing you despair,\n Detail the task that makes you pull out your hair:\n",
+    "Here to rescue you from the labyrinth of documentation!\n Unravel your challenge to me:\n",
+    "Seeking shell enlightenment, are we?\n Unveil the path to wisdom you're pursuing:\n",
+    "In the coding realm, when all is grim,\n Describe the prompt that makes you scream:\n",
+    "Ready to conquer the coding riddles?\n Describe the challenge you're facing, and I'll be your guide:\n",
+    "Stuck in the maze of complex requirements?\n Describe the twists and turns that have you feeling lost:\n",
+    "In the vast realm of coding, even superheroes need a sidekick!\n Tell me about the command you need assistance with:\n",
+    "Don't worry, I won't judge.\n We've all been there! Ask about the command that has you scratching your head:\n",
+    "In the vast sea of commands,\n it's okay to feel overwhelmed. Let me know which one you're struggling with, and we'll figure it out together:\n",
+    "Well, well, look who's in need of guidance.\n Pray tell, what has you seeking my wisdom?:\n",
+    "In a code abyss, dark and deep,\n Share the task that makes you weep:\n",
+    "In the digital realm, where all devs cry,\n A prompt for support, can't be denied!\n",
 ]
 
 fail_messages = [
