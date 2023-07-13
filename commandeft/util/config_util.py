@@ -4,7 +4,9 @@ import json
 from InquirerPy import prompt
 import click
 
-from commandeft.constants.consts import CONFIG_FILE_PATH, MAX_TOKENS
+from commandeft.constants.consts import CONFIG_FILE_PATH
+from commandeft.core.history_cache import HistoryCache
+from commandeft.util.gen_util import get_current_os, get_current_shell
 
 
 def get_configuration(config_property, config_file_path: str = CONFIG_FILE_PATH):
@@ -13,6 +15,33 @@ def get_configuration(config_property, config_file_path: str = CONFIG_FILE_PATH)
             configuration = json.load(config_file)
             return configuration.get(config_property)
     return None
+
+
+def create_generation_config():
+    model = get_configuration("model")
+    current_os = get_current_os()
+    current_shell = get_current_shell()
+    temperature = get_configuration("temperature")
+    max_tokens = get_configuration("max_tokens")
+    interactive_history = get_configuration("interactive_history")
+
+    generation_config = {
+        "model": model,
+        "temperature": temperature,
+        "max_tokens": max_tokens,
+        "interactive_history": interactive_history,
+        "current_os": current_os,
+        "current_shell": current_shell,
+        "history_cache": HistoryCache(model=model),
+    }
+
+    return generation_config
+
+
+if get_configuration("model") == "gpt-4":
+    from commandeft.constants.consts import GPT_4_MAX_TOKENS as MAX_TOKENS
+else:
+    from commandeft.constants.consts import GPT_3_5_MAX_TOKENS as MAX_TOKENS
 
 
 def validate_configuration(config_file_path: str = CONFIG_FILE_PATH):
@@ -30,7 +59,7 @@ def validate_configuration(config_file_path: str = CONFIG_FILE_PATH):
             click.echo(click.style(f"Config Error: Missing or empty value for configuration key: '{key}'", fg="red"))
             sys.exit(1)
 
-    if configuration["temperature"] < 0 or configuration["temperature"] > 1:
+    if configuration["temperature"] < 0 or configuration["temperature"] > 2:
         click.echo(click.style("Config Error: Invalid temperature value in configuration.", fg="red"))
         sys.exit(1)
 
@@ -38,7 +67,7 @@ def validate_configuration(config_file_path: str = CONFIG_FILE_PATH):
         click.echo(click.style("Config Error: Invalid max_tokens value in configuration.", fg="red"))
         sys.exit(1)
 
-    if configuration["model"] not in ["gpt-3.5-turbo", "gpt4"]:
+    if configuration["model"] not in ["gpt-3.5-turbo", "gpt-4"]:
         click.echo(click.style("Config Error: Invalid model value in configuration.", fg="red"))
         sys.exit(1)
 
@@ -49,34 +78,47 @@ def validate_configuration(config_file_path: str = CONFIG_FILE_PATH):
     return configuration
 
 
+def validate_max_tokens(answers, curr_val):
+    if curr_val == "":
+        return False
+
+    if answers["model"] == "gpt-4":
+        return 1 <= int(curr_val) <= 8192
+
+    return 1 <= int(curr_val) <= 4096
+
+
 def get_configuration_answers():
     # pylint: disable=unnecessary-lambda
-    questions = [
+    model_question = [
         {
             "type": "list",
             "name": "model",
             "message": "Choose the model to be used:\n",
             "choices": ["gpt-3.5-turbo", "gpt-4"],
         },
+    ]
+    model_answer = prompt(model_question)
+    questions = [
         {
             "type": "input",
             "name": "temperature",
-            "message": "Enter the temperature (0-1 with max 2 decimal places):\n",
-            "validate": lambda val: 0 <= float(val) <= 1,
-            "filter": lambda val: float(val),
+            "message": "Enter the temperature (0-2 with max 2 decimal places):\n",
+            "validate": lambda val: False if val == "" else 0 <= float(val) <= 2,
+            "filter": lambda val: False if val == "" else float(val),
+        },
+        {
+            "type": "input",
+            "name": "max_tokens",
+            "message": "Enter max_tokens (gpt-3.5-turbo:[1-4,096], gpt-4:[1-8,192]).:\n",
+            "validate": lambda val: validate_max_tokens(model_answer, val),
+            "filter": lambda val: False if val == "" else int(val),
         },
         {
             "type": "confirm",
             "name": "interactive_history",
             "message": "Would you like interactive mode to keep generation history?\n)",
             "default": True,
-        },
-        {
-            "type": "input",
-            "name": "max_tokens",
-            "message": "Enter max_tokens [1-4,096].:\n(in interactive mode with history enabled, this value is ignored)\n",
-            "validate": lambda val: 1 <= float(val) <= MAX_TOKENS,
-            "filter": lambda val: int(val),
         },
         {
             "type": "password",
@@ -91,8 +133,8 @@ def get_configuration_answers():
                 {"name": "Copy it to clipboard?", "value": "copy", "short": "copy?"},
                 {"name": "Run it?", "value": "run", "short": "run?"},
             ],
-        }
-        # Add more questions as needed
+        },
     ]
     answers = prompt(questions)
+    answers = {**model_answer, **answers}
     return answers

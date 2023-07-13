@@ -2,7 +2,8 @@ import os
 
 
 CONFIG_FILE_PATH = os.path.join(os.path.expanduser("~"), ".commandeft", "config")
-MAX_TOKENS = 4096
+GPT_3_5_MAX_TOKENS = 4096
+GPT_4_MAX_TOKENS = 8192
 
 init_messages = [
     "What mischief are we up to now?\n Describe the command you're concocting:\n",

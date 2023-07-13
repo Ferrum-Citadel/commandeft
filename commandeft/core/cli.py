@@ -9,31 +9,9 @@ import pyperclip
 from commandeft.constants.consts import COMMANDEFT_ASCII_DESC, COMMANDEFT_NORMAL_DESC, CONFIG_FILE_PATH
 from commandeft.core.decision import decide_and_apply_action
 from commandeft.core.generation import Generation
-from commandeft.core.history_cache import HistoryCache
-from commandeft.util.config_util import get_configuration_answers, validate_configuration
+from commandeft.util.config_util import create_generation_config, get_configuration_answers, validate_configuration
 from commandeft.util.interactive_util import display_command, get_prompt
-from commandeft.util.gen_util import (
-    get_current_shell,
-    get_current_os,
-)
-from commandeft.util.config_util import get_configuration
 
-model = get_configuration("model")
-CURRENT_OS = get_current_os()
-CURRENT_SHELL = get_current_shell()
-temperature = get_configuration("temperature")
-max_tokens = get_configuration("max_tokens")
-interactive_history = get_configuration("interactive_history")
-
-generation_config = {
-    "model": model,
-    "temperature": temperature,
-    "max_tokens": max_tokens,
-    "interactive_history": interactive_history,
-    "current_os": CURRENT_OS,
-    "current_shell": CURRENT_SHELL,
-    "history_cache": HistoryCache(model=model),
-}
 
 COMMANDEFT_DESCRIPTION = COMMANDEFT_ASCII_DESC if shutil.get_terminal_size((80, 20)).columns >= 50 else COMMANDEFT_NORMAL_DESC
 
@@ -88,6 +66,7 @@ def interactive_mode():
     else:
         validate_configuration()
 
+    generation_config = create_generation_config()
     generation_config["mode"] = "interactive"
     generation = Generation(generation_config)
 
@@ -101,6 +80,8 @@ def prompt_in_line(prompt):
         configuration_mode()
     else:
         validate_configuration()
+
+    generation_config = create_generation_config()
     generation_config["mode"] = "inline"
     generation = Generation(generation_config)
 
