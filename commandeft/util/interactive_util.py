@@ -1,5 +1,6 @@
 import json
 import random
+import shutil
 
 from InquirerPy import prompt
 import click
@@ -7,10 +8,11 @@ from commandeft.constants.consts import init_messages
 
 
 def display_command(command):
+    terminal_cols = shutil.get_terminal_size().columns
     num_of_tildes = len(command.splitlines()[0]) + 2
-    click.echo("~" * num_of_tildes)
+    click.echo("~" * min(num_of_tildes, terminal_cols))
     click.echo(click.style("> " + command, fg="green", bold=True))
-    click.echo("~" * num_of_tildes)
+    click.echo("~" * min(num_of_tildes, terminal_cols))
 
 
 def get_prompt(first_prompt=True):
@@ -19,7 +21,7 @@ def get_prompt(first_prompt=True):
         {
             "type": "input",
             "name": "prompt",
-            "message": random_prompt_message if first_prompt is True else "Clarify or expand on your previous prompt:",
+            "message": random_prompt_message if first_prompt is True else "Clarify or expand on your previous prompt:\n",
             "qmark": "-",
             "default": "",
             "filter": lambda val: json.dumps(val.strip()),
@@ -56,11 +58,11 @@ def get_decision(accept_command_behavior, history):
                 "name": "interact",
                 "choices": [
                     {
-                        "name": ("Run it " if accept_command_behavior == "run" else "Copy command to clipboard ") + "and exit?",
+                        "name": ("Run it." if accept_command_behavior == "run" else "Copy to clipboard."),
                         "value": "action",
                     },
-                    {"name": "Continue session?", "value": "continue"},
-                    {"name": "Exit session?", "value": "exit"},
+                    {"name": "Continue session.", "value": "continue"},
+                    {"name": "Exit session.", "value": "exit"},
                 ],
                 "message": "What would you like to do?\n",
                 "default": 1,

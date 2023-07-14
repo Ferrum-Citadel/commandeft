@@ -13,7 +13,7 @@ from commandeft.util.config_util import create_generation_config, get_configurat
 from commandeft.util.interactive_util import display_command, get_prompt
 
 
-COMMANDEFT_DESCRIPTION = COMMANDEFT_ASCII_DESC if shutil.get_terminal_size((80, 20)).columns >= 50 else COMMANDEFT_NORMAL_DESC
+COMMANDEFT_DESCRIPTION = COMMANDEFT_ASCII_DESC if shutil.get_terminal_size().columns >= 50 else COMMANDEFT_NORMAL_DESC
 
 
 class CustomCommand(click.Command):
@@ -46,7 +46,7 @@ def configuration_mode():
     click.echo(
         "-------------------------------------\n"
         + click.style("Configuration completed successfully.\n", fg="green")
-        + "To change the configuration, edit ~/.commandeft/config or run `commandeft --configure (or -c)]`\n"
+        + "To change the configuration, run `commandeft --configure (or -c)`\n"
     )
 
 

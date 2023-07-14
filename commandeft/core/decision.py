@@ -22,10 +22,11 @@ def decide_and_apply_action(command):
         if decision == "action":
             if accept_command_behavior == "run":
                 subprocess.run(command, shell=True, check=False)
+                return decide_and_apply_action(command)
             elif accept_command_behavior == "copy":
                 pyperclip.copy(command)
                 click.echo(click.style("> Command copied to clipboard!", fg="green"))
-            return "exit"
+                return decide_and_apply_action(command)
         return "continue"
 
     if decision:

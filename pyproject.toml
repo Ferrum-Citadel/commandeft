@@ -1,7 +1,7 @@
 
 [project]
 name = "commandeft"
-version = "0.3.1"
+version = "0.4.0"
 description = "CommanDeft is a CLI tool that converts natural language prompts into executable commands or scripts using OpenAI's chat models."
 readme = "README.md"
 authors = [

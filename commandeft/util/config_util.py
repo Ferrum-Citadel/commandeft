@@ -110,14 +110,14 @@ def get_configuration_answers():
         {
             "type": "input",
             "name": "max_tokens",
-            "message": "Enter max_tokens (gpt-3.5-turbo:[1-4,096], gpt-4:[1-8,192]).:\n",
+            "message": "Enter max_tokens " + ("[1,8192]" if model_answer["model"] == "gpt-4" else "[1,4096]") + ":\n",
             "validate": lambda val: validate_max_tokens(model_answer, val),
             "filter": lambda val: False if val == "" else int(val),
         },
         {
             "type": "confirm",
             "name": "interactive_history",
-            "message": "Would you like interactive mode to keep generation history?\n)",
+            "message": "Would you like interactive mode to keep generation history?\n",
             "default": True,
         },
         {
