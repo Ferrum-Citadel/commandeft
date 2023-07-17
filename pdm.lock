@@ -127,6 +127,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "packaging"
+version = "23.1"
+requires_python = ">=3.7"
+summary = "Core utilities for Python packages"
+
+[[package]]
 name = "pfzy"
 version = "0.3.4"
 requires_python = ">=3.7,<4.0"
@@ -250,7 +256,7 @@ dependencies = [
 lock_version = "4.2"
 cross_platform = true
 groups = ["default"]
-content_hash = "sha256:f32597d507242c236bf398ab77fd82176d2b1ebd92bdd3084d8ca9c62a87c1bd"
+content_hash = "sha256:4536705010b4e06b65f2b29584b1c8b6f912b4864eb26f59d407ff34d26052b0"
 
 [metadata.files]
 "aiohttp 3.8.4" = [
@@ -697,6 +703,10 @@ content_hash = "sha256:f32597d507242c236bf398ab77fd82176d2b1ebd92bdd3084d8ca9c62
 "openai 0.27.8" = [
     {url = "https://files.pythonhosted.org/packages/67/78/7588a047e458cb8075a4089d721d7af5e143ff85a2388d4a28c530be0494/openai-0.27.8-py3-none-any.whl", hash = "sha256:e0a7c2f7da26bdbe5354b03c6d4b82a2f34bd4458c7a17ae1a7092c3e397e03c"},
     {url = "https://files.pythonhosted.org/packages/89/ee/84bbd0161090f0f24e8a2ac175e6b6a936289ee02e9d5da414ce14d3d332/openai-0.27.8.tar.gz", hash = "sha256:2483095c7db1eee274cebac79e315a986c4e55207bb4fa7b82d185b3a2ed9536"},
+]
+"packaging 23.1" = [
+    {url = "https://files.pythonhosted.org/packages/ab/c3/57f0601a2d4fe15de7a553c00adbc901425661bf048f2a22dfc500caf121/packaging-23.1-py3-none-any.whl", hash = "sha256:994793af429502c4ea2ebf6bf664629d07c1a9fe974af92966e4b8d2df7edc61"},
+    {url = "https://files.pythonhosted.org/packages/b9/6c/7c6658d258d7971c5eb0d9b69fa9265879ec9a9158031206d47800ae2213/packaging-23.1.tar.gz", hash = "sha256:a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"},
 ]
 "pfzy 0.3.4" = [
     {url = "https://files.pythonhosted.org/packages/8c/d7/8ff98376b1acc4503253b685ea09981697385ce344d4e3935c2af49e044d/pfzy-0.3.4-py3-none-any.whl", hash = "sha256:5f50d5b2b3207fa72e7ec0ef08372ef652685470974a107d0d4999fc5a903a96"},

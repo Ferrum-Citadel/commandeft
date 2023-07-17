@@ -1,7 +1,6 @@
 import os
 import shutil
 import json
-from importlib.metadata import version
 import click
 import pyperclip
 
@@ -89,7 +88,3 @@ def prompt_in_line(prompt):
     click.echo(click.style("> " + command, fg="green"))
     pyperclip.copy(command)
     click.echo("Command copied to clipboard!")
-
-
-def print_version():
-    click.echo(version("commandeft"))
