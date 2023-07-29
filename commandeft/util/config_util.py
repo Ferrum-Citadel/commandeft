@@ -4,7 +4,7 @@ import json
 from InquirerPy import prompt
 import click
 
-from commandeft.constants.consts import CONFIG_FILE_PATH
+from commandeft.constants.consts import CONFIG_FILE_PATH, GPT_3_5_MAX_TOKENS, GPT_4_MAX_TOKENS, Models
 from commandeft.core.history_cache import HistoryCache
 from commandeft.util.gen_util import get_current_os, get_current_shell
 
@@ -38,7 +38,7 @@ def create_generation_config():
     return generation_config
 
 
-if get_configuration("model") == "gpt-4":
+if get_configuration("model") == Models.GPT_4:
     from commandeft.constants.consts import GPT_4_MAX_TOKENS as MAX_TOKENS
 else:
     from commandeft.constants.consts import GPT_3_5_MAX_TOKENS as MAX_TOKENS
@@ -67,7 +67,7 @@ def validate_configuration(config_file_path: str = CONFIG_FILE_PATH):
         click.echo(click.style("Config Error: Invalid max_tokens value in configuration.", fg="red"))
         sys.exit(1)
 
-    if configuration["model"] not in ["gpt-3.5-turbo", "gpt-4"]:
+    if configuration["model"] not in Models.get_models_list():
         click.echo(click.style("Config Error: Invalid model value in configuration.", fg="red"))
         sys.exit(1)
 
@@ -82,10 +82,10 @@ def validate_max_tokens(answers, curr_val):
     if curr_val == "":
         return False
 
-    if answers["model"] == "gpt-4":
-        return 1 <= int(curr_val) <= 8192
+    if answers["model"] == Models.GPT_4:
+        return 1 <= int(curr_val) <= GPT_4_MAX_TOKENS
 
-    return 1 <= int(curr_val) <= 4096
+    return 1 <= int(curr_val) <= GPT_3_5_MAX_TOKENS
 
 
 def get_configuration_answers():
@@ -95,7 +95,7 @@ def get_configuration_answers():
             "type": "list",
             "name": "model",
             "message": "Choose the model to be used:\n",
-            "choices": ["gpt-3.5-turbo", "gpt-4"],
+            "choices": Models.get_models_list(),
         },
     ]
     model_answer = prompt(model_question)
@@ -110,7 +110,7 @@ def get_configuration_answers():
         {
             "type": "input",
             "name": "max_tokens",
-            "message": "Enter max_tokens " + ("[1,8192]" if model_answer["model"] == "gpt-4" else "[1,4096]") + ":\n",
+            "message": "Enter max_tokens " + (f"[1,{GPT_4_MAX_TOKENS}]" if model_answer["model"] == Models.GPT_4 else f"[1,{GPT_3_5_MAX_TOKENS}]") + ":\n",
             "validate": lambda val: validate_max_tokens(model_answer, val),
             "filter": lambda val: False if val == "" else int(val),
         },

@@ -2,12 +2,13 @@ import sys
 import re
 import click
 import openai
+from commandeft.constants.consts import Models
 
 
 from commandeft.core.history_cache import HistoryCache
 from commandeft.util.config_util import get_configuration
 
-if get_configuration("model") == "gpt-4":
+if get_configuration("model") == Models.GPT_4:
     from commandeft.constants.consts import GPT_4_MAX_TOKENS as MAX_TOKENS
 else:
     from commandeft.constants.consts import GPT_3_5_MAX_TOKENS as MAX_TOKENS

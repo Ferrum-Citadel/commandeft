@@ -1,5 +1,12 @@
 import os
 
+class Models:
+    GPT_3_5_TURBO = "gpt-3.5-turbo"
+    GPT_4 = "gpt-4"
+
+    @classmethod
+    def get_models_list(cls):
+        return [cls.GPT_3_5_TURBO, cls.GPT_4]
 
 CONFIG_FILE_PATH = os.path.join(os.path.expanduser("~"), ".commandeft", "config")
 GPT_3_5_MAX_TOKENS = 4096
