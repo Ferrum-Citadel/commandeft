@@ -2,7 +2,7 @@ import sys
 import re
 import click
 import openai
-from commandeft.constants.consts import Models
+from commandeft.constants.consts import Mode, Models
 
 
 from commandeft.core.history_cache import HistoryCache
@@ -20,7 +20,7 @@ class Generation:
         self.__config = config
         self.__history_cache: HistoryCache = config.get("history_cache", HistoryCache(model=self.model))
 
-        if self.mode == "interactive" and self.interactive_history:
+        if self.mode == Mode.INTERACTIVE and self.interactive_history:
             self.__set_keep_history(True)
         else:
             self.__set_keep_history(False)
@@ -67,7 +67,7 @@ class Generation:
             "content": f"""Provide only the raw command inside a code block that best fulfills the following request: {user_prompt}. Prefer oneliners. No other text is allowed.""",
         }
 
-        if self.mode == "interactive":
+        if self.mode == Mode.INTERACTIVE:
             res = self.__generate_interactive_command(user_message, user_prompt, system_message)
         else:
             res = self.__generate_inline_command(user_message, system_message)
@@ -77,7 +77,7 @@ class Generation:
             return command
         except ValueError:
             click.echo(click.style(res.replace(". ", ".\n"), fg="red"))
-            if self.mode == "inline":
+            if self.mode == Mode.INLINE:
                 sys.exit(1)
             return None
 

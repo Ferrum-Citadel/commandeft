@@ -4,7 +4,7 @@ import shutil
 
 from InquirerPy import prompt
 import click
-from commandeft.constants.consts import init_messages
+from commandeft.constants.consts import AcceptCommandBehavior, init_messages
 
 
 def display_command(command):
@@ -33,7 +33,7 @@ def get_prompt(first_prompt=True):
 
 def get_decision(accept_command_behavior, history):
     if history is False:
-        if accept_command_behavior == "run":
+        if accept_command_behavior == AcceptCommandBehavior.RUN:
             choice_question = [
                 {
                     "type": "confirm",
@@ -42,7 +42,7 @@ def get_decision(accept_command_behavior, history):
                     "default": True,
                 }
             ]
-        elif accept_command_behavior == "copy":
+        elif accept_command_behavior == AcceptCommandBehavior.COPY:
             choice_question = [
                 {
                     "type": "confirm",

@@ -5,7 +5,7 @@ import click
 import pyperclip
 
 
-from commandeft.constants.consts import COMMANDEFT_ASCII_DESC, COMMANDEFT_NORMAL_DESC, CONFIG_FILE_PATH
+from commandeft.constants.consts import COMMANDEFT_ASCII_DESC, COMMANDEFT_NORMAL_DESC, CONFIG_FILE_PATH, Mode
 from commandeft.core.decision import decide_and_apply_action
 from commandeft.core.generation import Generation
 from commandeft.util.config_util import create_generation_config, get_configuration_answers, validate_configuration
@@ -66,7 +66,7 @@ def interactive_mode():
         validate_configuration()
 
     generation_config = create_generation_config()
-    generation_config["mode"] = "interactive"
+    generation_config["mode"] = Mode.INTERACTIVE
     generation = Generation(generation_config)
 
     next_action = interactive_core(is_first_prompt=True, generation=generation)
@@ -81,7 +81,7 @@ def prompt_in_line(prompt):
         validate_configuration()
 
     generation_config = create_generation_config()
-    generation_config["mode"] = "inline"
+    generation_config["mode"] = Mode.INLINE
     generation = Generation(generation_config)
 
     command = generation.generate_command(prompt)

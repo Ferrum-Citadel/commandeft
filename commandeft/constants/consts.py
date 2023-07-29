@@ -8,6 +8,23 @@ class Models:
     def get_models_list(cls):
         return [cls.GPT_3_5_TURBO, cls.GPT_4]
 
+class Decision:
+    EXIT = "exit"
+    CONTINUE = "continue"
+    ACTION = "action"
+
+class Mode:
+    INTERACTIVE = "interactive"
+    INLINE = "inline"
+
+class AcceptCommandBehavior:
+    RUN = "run"
+    COPY = "copy"
+
+MODE="mode"
+MODEL="model"
+EXIT="exit"
+
 CONFIG_FILE_PATH = os.path.join(os.path.expanduser("~"), ".commandeft", "config")
 GPT_3_5_MAX_TOKENS = 4096
 GPT_4_MAX_TOKENS = 8192
