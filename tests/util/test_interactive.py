@@ -1,11 +1,9 @@
-from io import StringIO, TextIOWrapper
+from io import StringIO
 import sys
 from click import unstyle
 import pytest
-import json
 from unittest.mock import patch, MagicMock, call
 from InquirerPy import prompt
-from commandeft.constants.consts import AcceptCommandBehavior
 from commandeft.util.interactive_util import display_command, get_decision, get_prompt
 import re
 

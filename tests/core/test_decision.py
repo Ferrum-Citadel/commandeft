@@ -2,7 +2,7 @@
 
 import pytest
 from unittest.mock import patch, MagicMock
-from commandeft.constants.consts import EXIT, AcceptCommandBehavior, Decision
+from commandeft.constants.consts import EXIT, Decision
 from commandeft.core.decision import decide_and_apply_action
 
 def test_decide_and_apply_empty_command():
@@ -62,5 +62,5 @@ def test_decide_and_apply_action_decision_false():
             result = decide_and_apply_action(command)
 
     # The function should print the failure message and return "exit".
-    assert result == "exit"
+    assert result == EXIT
     mock_random_choice.assert_called_once()

@@ -6,7 +6,6 @@ from commandeft.constants.consts import Models
 from commandeft.core.history_cache import HistoryCache
 from commandeft.util.config_util import create_generation_config, get_configuration_answers, validate_configuration, validate_max_tokens
 from unittest.mock import patch
-import pytest
 
 # Replace 'your_module' with the actual module where the functions are defined
 
