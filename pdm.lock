@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:3f8561bec19ffcda093122b256f93968c10e9cbad0b2fbd8786f912fa26008cc"
+content_hash = "sha256:089264bfadf1dad5dec3b6622e13b45d8f9d93ba26be2c8105d13464f1e25087"
 
 [[package]]
 name = "aiohttp"
@@ -635,7 +635,7 @@ files = [
 
 [[package]]
 name = "openai"
-version = "0.27.8"
+version = "0.28.1"
 requires_python = ">=3.7.1"
 summary = "Python client library for the OpenAI API"
 dependencies = [
@@ -644,8 +644,8 @@ dependencies = [
     "tqdm",
 ]
 files = [
-    {file = "openai-0.27.8-py3-none-any.whl", hash = "sha256:e0a7c2f7da26bdbe5354b03c6d4b82a2f34bd4458c7a17ae1a7092c3e397e03c"},
-    {file = "openai-0.27.8.tar.gz", hash = "sha256:2483095c7db1eee274cebac79e315a986c4e55207bb4fa7b82d185b3a2ed9536"},
+    {file = "openai-0.28.1-py3-none-any.whl", hash = "sha256:d18690f9e3d31eedb66b57b88c2165d760b24ea0a01f150dd3f068155088ce68"},
+    {file = "openai-0.28.1.tar.gz", hash = "sha256:4be1dad329a65b4ce1a660fe6d5431b438f429b5855c883435f0f7fcb6d2dcc8"},
 ]
 
 [[package]]
