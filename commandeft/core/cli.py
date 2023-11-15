@@ -10,6 +10,7 @@ from commandeft.core.decision import decide_and_apply_action
 from commandeft.core.generation import Generation
 from commandeft.util.config_util import create_generation_config, get_configuration_answers, validate_configuration
 from commandeft.util.interactive_util import display_command, get_prompt
+from commandeft.util.config_util import get_configuration
 
 
 COMMANDEFT_DESCRIPTION = COMMANDEFT_ASCII_DESC if shutil.get_terminal_size().columns >= 50 else COMMANDEFT_NORMAL_DESC
@@ -53,9 +54,11 @@ def interactive_core(is_first_prompt, generation):
     user_prompt: str = get_prompt(is_first_prompt)
     command: str | None = generation.generate_command(user_prompt)
 
+    accept_command_behavior = get_configuration("accept_command_behavior")
+    history = get_configuration("interactive_history")
     if command:
         display_command(command)
-        return decide_and_apply_action(command)
+        return decide_and_apply_action(command, history, accept_command_behavior)
     return "exit"
 
 

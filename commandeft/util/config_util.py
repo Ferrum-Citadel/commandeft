@@ -4,7 +4,7 @@ import json
 from InquirerPy import prompt
 import click
 
-from commandeft.constants.consts import CONFIG_FILE_PATH, GPT_3_5_MAX_TOKENS, GPT_4_MAX_TOKENS, Models
+from commandeft.constants.consts import CONFIG_FILE_PATH, MaxTokens, Models
 from commandeft.core.history_cache import HistoryCache
 from commandeft.util.gen_util import get_current_os, get_current_shell
 
@@ -38,12 +38,6 @@ def create_generation_config():
     return generation_config
 
 
-if get_configuration("model") == Models.GPT_4:
-    from commandeft.constants.consts import GPT_4_MAX_TOKENS as MAX_TOKENS
-else:
-    from commandeft.constants.consts import GPT_3_5_MAX_TOKENS as MAX_TOKENS
-
-
 def validate_configuration(config_file_path: str = CONFIG_FILE_PATH):
     required_keys = ["model", "temperature", "max_tokens", "accept_command_behavior"]
 
@@ -63,12 +57,19 @@ def validate_configuration(config_file_path: str = CONFIG_FILE_PATH):
         click.echo(click.style("Config Error: Invalid temperature value in configuration.", fg="red"))
         sys.exit(1)
 
-    if not 1 <= configuration["max_tokens"] <= MAX_TOKENS:
-        click.echo(click.style("Config Error: Invalid max_tokens value in configuration.", fg="red"))
-        sys.exit(1)
-
     if configuration["model"] not in Models.get_models_list():
         click.echo(click.style("Config Error: Invalid model value in configuration.", fg="red"))
+        sys.exit(1)
+
+    if configuration["model"] == Models.GPT_4:
+        MAX_TOKENS = MaxTokens.GPT_4
+    elif configuration["model"] == Models.GPT_4_TURBO:
+        MAX_TOKENS = MaxTokens.GPT_4_TURBO
+    else:
+        MAX_TOKENS = MaxTokens.GPT_3_5_TURBO
+
+    if not 1 <= configuration["max_tokens"] <= MAX_TOKENS:
+        click.echo(click.style("Config Error: Invalid max_tokens value in configuration.", fg="red"))
         sys.exit(1)
 
     if configuration["accept_command_behavior"] not in ["run", "copy"]:
@@ -83,9 +84,11 @@ def validate_max_tokens(answers, curr_val):
         return False
 
     if answers["model"] == Models.GPT_4:
-        return 1 <= int(curr_val) <= GPT_4_MAX_TOKENS
+        return 1 <= int(curr_val) <= MaxTokens.GPT_4
+    elif answers["model"] == Models.GPT_4_TURBO:
+        return 1 <= int(curr_val) <= MaxTokens.GPT_4_TURBO
 
-    return 1 <= int(curr_val) <= GPT_3_5_MAX_TOKENS
+    return 1 <= int(curr_val) <= MaxTokens.GPT_3_5_TURBO
 
 
 def get_configuration_answers():
@@ -110,7 +113,15 @@ def get_configuration_answers():
         {
             "type": "input",
             "name": "max_tokens",
-            "message": "Enter max_tokens " + (f"[1,{GPT_4_MAX_TOKENS}]" if model_answer["model"] == Models.GPT_4 else f"[1,{GPT_3_5_MAX_TOKENS}]") + ":\n",
+            "message": "Enter max_tokens "
+            + (
+                f"[1,{MaxTokens.GPT_4}]"
+                if model_answer["model"] == Models.GPT_4
+                else f"[1,{MaxTokens.GPT_3_5_TURBO}]"
+                if model_answer["model"] == Models.GPT_3_5_TURBO
+                else f"[1,{MaxTokens.GPT_4_TURBO}]"
+            )
+            + ":\n",
             "validate": lambda val: validate_max_tokens(model_answer, val),
             "filter": lambda val: False if val == "" else int(val),
         },

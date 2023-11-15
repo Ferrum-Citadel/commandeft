@@ -1,33 +1,43 @@
 import os
 
+
 class Models:
     GPT_3_5_TURBO = "gpt-3.5-turbo"
     GPT_4 = "gpt-4"
+    GPT_4_TURBO = "gpt-4-1106-preview"
 
     @classmethod
     def get_models_list(cls):
-        return [cls.GPT_3_5_TURBO, cls.GPT_4]
+        return [cls.GPT_3_5_TURBO, cls.GPT_4, cls.GPT_4_TURBO]
+
+
+class MaxTokens:
+    GPT_3_5_TURBO = 4096
+    GPT_4 = 8192
+    GPT_4_TURBO = 4096
+
 
 class Decision:
     EXIT = "exit"
     CONTINUE = "continue"
     ACTION = "action"
 
+
 class Mode:
     INTERACTIVE = "interactive"
     INLINE = "inline"
+
 
 class AcceptCommandBehavior:
     RUN = "run"
     COPY = "copy"
 
-MODE="mode"
-MODEL="model"
-EXIT="exit"
+
+MODE = "mode"
+MODEL = "model"
+EXIT = "exit"
 
 CONFIG_FILE_PATH = os.path.join(os.path.expanduser("~"), ".commandeft", "config")
-GPT_3_5_MAX_TOKENS = 4096
-GPT_4_MAX_TOKENS = 8192
 
 init_messages = [
     "What mischief are we up to now?\n Describe the command you're concocting:\n",

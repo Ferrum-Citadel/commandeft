@@ -7,11 +7,7 @@ from commandeft.constants.consts import Mode, Models
 
 from commandeft.core.history_cache import HistoryCache
 from commandeft.util.config_util import get_configuration
-
-if get_configuration("model") == Models.GPT_4:
-    from commandeft.constants.consts import GPT_4_MAX_TOKENS as MAX_TOKENS
-else:
-    from commandeft.constants.consts import GPT_3_5_MAX_TOKENS as MAX_TOKENS
+from commandeft.constants.consts import MaxTokens
 
 
 class Generation:
@@ -24,6 +20,13 @@ class Generation:
             self.__set_keep_history(True)
         else:
             self.__set_keep_history(False)
+
+        if self.model == Models.GPT_4:
+            self.__model_max_tokens = MaxTokens.GPT_4
+        elif self.model == Models.GPT_4_TURBO:
+            self.__model_max_tokens = MaxTokens.GPT_4_TURBO
+        else:
+            self.__model_max_tokens = MaxTokens.GPT_3_5_TURBO
 
     def __set_keep_history(self, value):
         self.__keep_history = value
@@ -123,7 +126,7 @@ class Generation:
 
         if self.__keep_history:
             cur_total_tokens = self.__history_cache.size
-            max_tokens = MAX_TOKENS - cur_total_tokens
+            max_tokens = self.__model_max_tokens - cur_total_tokens
         else:
             max_tokens = self.max_tokens + 130
 

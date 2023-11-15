@@ -7,11 +7,8 @@ from commandeft.constants.consts import EXIT, AcceptCommandBehavior, Decision, f
 from commandeft.util.config_util import get_configuration
 from commandeft.util.interactive_util import get_decision
 
-accept_command_behavior = get_configuration("accept_command_behavior")
-history = get_configuration("interactive_history")
 
-
-def decide_and_apply_action(command):
+def decide_and_apply_action(command, history, accept_command_behavior):
     if not command:
         return EXIT
 
@@ -22,11 +19,11 @@ def decide_and_apply_action(command):
         if decision == Decision.ACTION:
             if accept_command_behavior == AcceptCommandBehavior.RUN:
                 subprocess.run(command, shell=True, check=False)
-                return decide_and_apply_action(command)
+                return decide_and_apply_action(command, history, accept_command_behavior)
             elif accept_command_behavior == AcceptCommandBehavior.COPY:
                 pyperclip.copy(command)
                 click.echo(click.style("> Command copied to clipboard!", fg="green"))
-                return decide_and_apply_action(command)
+                return decide_and_apply_action(command, history, accept_command_behavior)
         return "continue"
 
     if decision:

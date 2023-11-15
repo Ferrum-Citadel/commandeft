@@ -5,12 +5,14 @@ from unittest.mock import patch, MagicMock
 from commandeft.constants.consts import Mode, Models
 from commandeft.core.generation import Generation
 
+
 def mock_openai_chat_completion(*args, **kwargs):
     # Mock the behavior of openai.ChatCompletion.create function.
     # For simplicity, let's return a MagicMock object for completion.choices[0].message.content.
     completion_mock = MagicMock()
     completion_mock.choices[0].message.content = "Generated command content"
     return completion_mock
+
 
 @pytest.mark.skip(reason="TODO: Implement this test.")
 def test_generate_command_inline():
@@ -37,6 +39,7 @@ def test_generate_command_inline():
         # Check if the generated_command matches the expected content from the mock.
         assert generated_command == "Generated command content"
 
+
 @pytest.mark.skip(reason="TODO: Implement this test.")
 def test_generate_command_interactive():
     # Test generate_command in INTERACTIVE mode.
@@ -62,6 +65,7 @@ def test_generate_command_interactive():
         # Check if the generated_command matches the expected content from the mock.
         assert generated_command == "Generated command content"
 
+
 def test_generate_command_invalid_response():
     # Test generate_command with an invalid response.
 
@@ -78,13 +82,14 @@ def test_generate_command_invalid_response():
 
     # Create a Generation object with the mock config.
     with patch("commandeft.core.generation.openai.ChatCompletion.create", return_value=None):
-        generation = Generation(config)
+        with patch("commandeft.core.generation.get_configuration") as mock_get_config:
+            generation = Generation(config)
 
-        # Call the function under test.
-        generated_command = generation.generate_command("Test prompt")
+            # Call the function under test.
+            generated_command = generation.generate_command("Test prompt")
 
-        # Check if the generated_command is None when there is no valid response.
-        assert generated_command is None
+            # Check if the generated_command is None when there is no valid response.
+            assert generated_command is None
 
 
 def test_parse_code_block():

@@ -2,6 +2,7 @@ from unittest.mock import patch
 from commandeft.constants.consts import Models
 from commandeft.core.history_cache import HistoryCache
 
+
 def test_history_cache_append():
     model = Models.GPT_4
     history_cache = HistoryCache(model)
@@ -19,6 +20,7 @@ def test_history_cache_append():
     # Check if the size has been updated correctly.
     assert history_cache.size == 100
 
+
 def test_history_cache_clear():
     # Test the clear method.
 
@@ -34,6 +36,7 @@ def test_history_cache_clear():
     # Check if the cache is empty and size is reset.
     assert len(history_cache.cache) == 0
     assert history_cache.size == 0
+
 
 def test_history_cache_num_tokens_from_messages():
     # Test the num_tokens_from_messages method.
@@ -53,7 +56,7 @@ def test_history_cache_num_tokens_from_messages():
     num_tokens = history_cache.num_tokens_from_messages(messages)
 
     # Check if the number of tokens is calculated correctly.
-    assert num_tokens == 27  # The expected number of tokens may vary based on the model.
+    assert num_tokens == 26  # The expected number of tokens may vary based on the model.
 
 
 def test_history_cache_is_empty():
@@ -66,6 +69,7 @@ def test_history_cache_is_empty():
     # Check if the cache is empty.
     assert history_cache.is_empty() is True
 
+
 def test_history_cache_is_not_empty():
     # Test the is_empty method when the cache is not empty.
 
@@ -76,6 +80,7 @@ def test_history_cache_is_not_empty():
 
     # Check if the cache is not empty.
     assert history_cache.is_empty() is False
+
 
 def test_history_cache_get_cache():
     # Test the get_cache method.
@@ -88,6 +93,7 @@ def test_history_cache_get_cache():
     # Get the cache and check its content.
     cache = history_cache.get_cache()
     assert cache == [{"role": "user", "content": "Message 1"}, {"role": "assistant", "content": "Response 1"}]
+
 
 def test_history_cache_max_tokens_reached():
     # Test the behavior when the maximum token size is reached.

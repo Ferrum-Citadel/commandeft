@@ -41,10 +41,7 @@ class HistoryCache:
     def num_tokens_from_messages(self, messages):
         """Returns the number of tokens used by a list of messages."""
 
-        if self.model == Models.GPT_3_5_TURBO:
-            tokens_per_message = 4  # every message follows <|start|>{role/name}\n{content}<|end|>\n
-            tokens_per_name = -1  # if there's a name, the role is omitted
-        elif self.model == Models.GPT_4:
+        if self.model in Models.get_models_list():
             tokens_per_message = 3
             tokens_per_name = 1
         else:
